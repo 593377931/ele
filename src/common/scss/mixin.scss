@@ -1,0 +1,35 @@
+@mixin border-1px($color) {
+  position: relative;
+  &::after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid $color;
+  }
+}
+
+@mixin bg-image($url) {
+  background-image: url($url + "@2x.png");
+  @media (min-device-pixel-ratio: 3) {
+    background-image: url($url + "@3x.png")
+  };
+}
+
+@mixin clearfix() {
+  &::after {
+    content: ' ';
+    display: block;
+    clear: both;
+    font-size: 0;
+    visibility: hidden;
+  }
+}
+
+@mixin ellipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
