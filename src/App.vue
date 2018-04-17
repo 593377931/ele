@@ -34,6 +34,9 @@ export default {
 <style lang="scss">
 @import "common/scss/mixin.scss";
 #app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
   div.tab {
     display: flex;
     width: 100%;
@@ -41,7 +44,6 @@ export default {
     line-height: .8rem;
     font-size: .28rem;
     @include border-1px(rgba(7, 17, 27, .1));
-    // border-bottom: 1px solid rgba(7, 17, 27, .1);
     .tab-item {
       flex-grow: 1;
       text-align: center;

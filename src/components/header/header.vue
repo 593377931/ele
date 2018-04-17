@@ -77,8 +77,6 @@ export default {
       }
     }
   },
-  computed: {
-    },
   methods: {
     supportType (key) {
       let classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
@@ -106,6 +104,7 @@ export default {
       padding: .48rem .24rem .36rem .48rem;
       display: flow-root;
       position: relative;
+      height: calc(.48rem + 1.28rem + .36rem);
       @include clearfix();
       .avatar {
         float: left;
