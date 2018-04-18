@@ -3,18 +3,52 @@
 }
 body {
   font-weight: 200;
+  font-size: .24rem;
+  line-height: 1.5;
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.5) {
   .border-1px {
     &::after {
-      transform: scaleY(.7)
+      transform: scaleY(.6)
     }
   }
 };
 
 @media (-webkit-min-device-pixel-ratio: 2) {
   .border-1px {
+    &::after {
+      transform: scaleY(.5)
+    }
+  }
+};
+
+@media (-webkit-min-device-pixel-ratio: 1.5) {
+  .border-right-1px {
+    &::after {
+      transform: scaleX(.6)
+    }
+  }
+};
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .border-right-1px {
+    &::after {
+      transform: scaleX(.5)
+    }
+  }
+};
+
+@media (-webkit-min-device-pixel-ratio: 1.5) {
+  .border-top-1px {
+    &::after {
+      transform: scaleY(.6)
+    }
+  }
+};
+
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .border-top-1px {
     &::after {
       transform: scaleY(.5)
     }

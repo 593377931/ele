@@ -36,15 +36,16 @@ export default {
 <style lang="scss">
 @import "../../common/scss/mixin.scss";
 .star {
+  height: 100%;
   width: 100%;
   display: flex;
+  justify-content: space-between;
   span {
-    flex-grow: 1;
-    justify-content: space-between;
     display: inline-block;
     &.star24 {
-      width: .4rem;
-      height: .4rem;
+      width: 10%;
+      height: 0;
+      padding: 5% 0;
       background-repeat: no-repeat;
       background-size: contain;
       background-position: 50% 50%;
@@ -59,8 +60,9 @@ export default {
       }
     }
     &.star36 {
-      width: .6rem;
-      height: .6rem;
+      width: 16%;
+      height: 0;
+      padding: 8% 0;
       background-repeat: no-repeat;
       background-size: contain;
       background-position: 50% 50%;
@@ -75,8 +77,9 @@ export default {
       }
     }
     &.star48 {
-      width: .8rem;
-      height: .8rem;
+      width: 14%;
+      height: 0;
+      padding: 7% 0;
       background-repeat: no-repeat;
       background-size: contain;
       background-position: 50% 50%;

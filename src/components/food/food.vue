@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper border-1px">
     <img :src="msg.icon" alt="food picture">
-    <div class="content">
+    <div class="content" @click="showFoodDeatil">
       <h2 class="name">{{ msg.name }}</h2>
       <p class="description" v-if="msg.description">{{ msg.description }}</p>
       <p class="sellCount">
@@ -13,13 +13,37 @@
         <span class="oldPrice" v-if="msg.oldPrice">{{ msg.oldPrice }}</span>
       </p>
     </div>
+    <div class="cart-control-wrapper">
+      <cart-control :goods="msg"></cart-control>
+    </div>
   </div>
 </template>
 
 <script>
+import CartControl from '@/components/cartcontrol/cartcontrol'
+
 export default {
   props: {
     msg: Object
+  },
+  data () {
+    return {
+      operating: false
+    }
+  },
+  components: {
+    CartControl
+  },
+  methods: {
+    showFoodDeatil () {
+      if (!this.operating) {
+        this.$emit('showFoodDeatil')
+        this.operating = true
+        setTimeout(() => {
+          this.operating = false
+        }, 20)
+      }
+    }
   }
 }
 </script>
@@ -28,6 +52,7 @@ export default {
   @import '../../common/scss/mixin.scss';
   .wrapper {
     @include border-1px(rgba(7, 17, 27, .1));
+    position: relative;
     &::after {
       width: 90%;
       left: 0;
@@ -85,6 +110,11 @@ export default {
           }
         }
       }
+    }
+    .cart-control-wrapper {
+      position: absolute;
+      right: .3rem;
+      bottom: .3rem;
     }
   }
 </style>

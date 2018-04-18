@@ -16,26 +16,39 @@
           <h1 class="title">{{item.name}}</h1>
           <ul>
             <li class="food" v-for="food in item.foods" :key="food.name">
-              <Food :msg="food" />
+              <Food :msg="food"  v-on:showFoodDeatil = "showFoodDeatil(food)" />
             </li>
           </ul>
         </li>
       </ul>
     </div>
+    <shop-cart :selectedFoods="userSelected" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"/>
+    <food-detail v-on:closeFoodDetail="showGoodsDetail = null" v-if="showGoodsDetail" :food="showGoodsDetail"></food-detail>
   </div>
 </template>
 
 <script>
 import Food from '@/components/food/food'
+import ShopCart from '@/components/shopcart/shopcart'
+import FoodDetail from '@/components/fooddetail/food'
+
 import BScroll from 'better-scroll'
+
 export default {
   data () {
     return {
       listHeight: [],
-      scrollY: 0
+      scrollY: 0,
+      showGoodsDetail: null
     }
   },
   computed: {
+    seller () {
+      return this.$store.state.seller
+    },
+    userSelected () {
+      return this.$store.state.userSelected
+    },
     goods () {
       this.$nextTick(() => {
         this._initScroll()
@@ -56,6 +69,9 @@ export default {
     }
   },
   methods: {
+    showFoodDeatil (food) {
+      this.showGoodsDetail = food
+    },
     scrollTo (index, event) {
       if (!event._constructed) {
         return
@@ -89,7 +105,9 @@ export default {
     }
   },
   components: {
-    Food
+    Food,
+    ShopCart,
+    FoodDetail
   }
 }
 </script>

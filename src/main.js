@@ -15,8 +15,10 @@ Vue.config.productionTip = false
 var store = new Vuex.Store({
   state: {
     seller: {},
-    ratings: {},
-    goods: {}
+    ratings: [],
+    goods: [],
+    userSelected: [],
+    collected: false
   },
   getters: {},
   mutations: {
@@ -28,6 +30,34 @@ var store = new Vuex.Store({
     },
     loadGoods: (state, data) => {
       state.goods = data
+    },
+    addGoods: (state, goods) => {
+      let userSelected = state.userSelected
+      let key = userSelected.indexOf(goods)
+      if (key > -1) {
+        userSelected[key].count++
+        let temp = userSelected[key]
+        userSelected.splice(key, 1, temp)
+      } else if (key === -1) {
+        goods.count = 1
+        userSelected.push(goods)
+      }
+    },
+    removeGoods: (state, goods) => {
+      let userSelected = state.userSelected
+      let key = userSelected.indexOf(goods)
+      if (userSelected[key].count > 0) {
+        userSelected[key].count--
+        let temp = userSelected[key]
+        if (temp.count > 0) {
+          userSelected.splice(key, 1, temp)
+        } else {
+          userSelected.splice(key, 1)
+        }
+      }
+    },
+    toggleCollection: (state) => {
+      state.collected = !state.collected
     }
   }
 })
