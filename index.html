@@ -6,13 +6,91 @@
     <title>ele</title>
     <link rel="stylesheet" href="static/css/reset.css">
     <style>
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+          -webkit-transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+          -webkit-transform: rotate(360deg);
+        }
+      }
+      @keyframes rotate2 {
+        from {
+          transform: rotate(0deg);
+          -webkit-transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(-360deg);
+          -webkit-transform: rotate(360deg);
+        }
+      }
       html {
         font-size: calc(100vw / 7.5)
+      }
+      .cover {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        background-color: rgb(0, 160, 220);
+      }
+      .cover.loaded {
+        opacity: 0;
+        transition: opacity ease-out 500ms;
+      }
+      .cover .stage {
+        width: .4rem;
+        height: .4rem;
+        /* border: 1px solid black; */
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        border-radius: 9999rem;
+        transform: translate(-50%, -50%);
+      }
+      .cover .stage::before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 0;
+        width: 0.05rem;
+        height: 0.05rem;
+        border-radius: 999rem;
+        box-shadow: 0 0 .05rem 0.05rem #f0f0f0;
+        transform-origin: .2rem .2rem;
+        animation: rotate 2s linear infinite;
+        -webkit-animation: rotate 2s linear infinite;
+        background-color: #f0f0f0;
+      }
+      .cover .stage::after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        font-size: 0;
+        width: 0.05rem;
+        height: 0.05rem;
+        border-radius: 999rem;
+        box-shadow: 0 0 .05rem 0.1rem #f0f0f0;
+        transform-origin: -.2rem -.2rem;
+        animation: rotate 2s linear infinite;
+        -webkit-animation: rotate 2s linear infinite;
+        background-color: #f0f0f0;
       }
     </style>
   </head>
   <body>
     <div id="app"></div>
+    <div class="cover">
+      <div class="stage"></div>
+    </div>
     <!-- built files will be auto injected -->
   </body>
 </html>

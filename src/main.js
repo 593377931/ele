@@ -69,18 +69,21 @@ new Vue({
       .then(res => {
         if (res.data.errno === ERR_OK) {
           this.$store.commit('loadSeller', res.data.data)
+          this.loadWatcher.push('seller loaded')
         }
       })
     axios.get('/api/ratings')
       .then(res => {
         if (res.data.errno === ERR_OK) {
           this.$store.commit('loadRatings', res.data.data)
+          this.loadWatcher.push('ratings loaded')
         }
       })
     axios.get('/api/goods')
       .then(res => {
         if (res.data.errno === ERR_OK) {
           this.$store.commit('loadGoods', res.data.data)
+          this.loadWatcher.push('seller loaded')
         }
       })
   },
@@ -88,5 +91,22 @@ new Vue({
   store,
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  data () {
+    return {
+      loadWatcher: []
+    }
+  },
+  watch: {
+    loadWatcher () {
+      if (this.loadWatcher.length === 3) {
+        let mask = document.querySelector('body > div.cover')
+        mask.classList.add('loaded')
+        setTimeout(() => {
+          document.body.removeChild(mask)
+          mask = null
+        }, 550)
+      }
+    }
+  }
 })

@@ -72,12 +72,18 @@ export default {
     showFoodDeatil (food) {
       this.showGoodsDetail = food
     },
+    betterScorllBugHack () {
+      this.operating = true
+      setTimeout(() => {
+        this.operating = false
+      }, 20)
+    },
     scrollTo (index, event) {
-      if (!event._constructed) {
-        return
+      if (!this.operating) {
+        this.betterScorllBugHack()
+        let foodLists = this.$refs.foodsWrapper.querySelectorAll('li.food-list-hook')
+        this.foodsScroll.scrollToElement(foodLists[index], 300)
       }
-      let foodLists = this.$refs.foodsWrapper.querySelectorAll('li.food-list-hook')
-      this.foodsScroll.scrollToElement(foodLists[index], 300)
     },
     supportType (key) {
       let classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']

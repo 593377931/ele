@@ -18,7 +18,10 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/:part', (req, res) => {
-  res.send(appDate[req.params.part])
+  res.send({
+    errno: 0,
+    data: appDate[req.params.part]
+  })
 })
 
 app.listen('9999', () => console.log('listening on 9999'))

@@ -15,9 +15,9 @@
           <span class="complain">吐槽 {{ ratings.filter(it => it.rateType === 1).length }}</span>
         </label>
       </div>
-      <div class="checkbox">
+      <div class="checkbox" @click="toggleFilter">
         <label>
-          <input type="checkbox" v-model="filter">
+          <input type="checkbox" :checked="filter">
           <i class="icon-check_circle"></i>
           <span class="tips">只看有内容的评价</span>
         </label>
@@ -58,7 +58,8 @@ export default {
   data () {
     return {
       parts: 'all',
-      filter: false
+      filter: false,
+      operating: false
     }
   },
   computed: {
@@ -83,6 +84,20 @@ export default {
   },
   components: {
     Star
+  },
+  methods: {
+    toggleFilter () {
+      if (this.operating) {
+        this.betterScorllBugHack()
+        this.filter = !this.filter
+      }
+    },
+    betterScorllBugHack () {
+      this.operating = true
+      setTimeout(() => {
+        this.operating = false
+      }, 20)
+    }
   }
 }
 </script>
@@ -169,8 +184,10 @@ export default {
           width: 100vw;
           margin: .08rem 0 .12rem;
           .star-wrapper {
-            width: 1rem;
-            height: 0.4rem;
+            vertical-align: top;
+            margin: .08rem 0;
+            width: 1.5rem;
+            height: 0.24rem;
             display: inline-block;
             vertical-align: top;
             padding-right: .12rem;

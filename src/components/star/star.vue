@@ -43,9 +43,9 @@ export default {
   span {
     display: inline-block;
     &.star24 {
-      width: 10%;
+      width: 16%;
       height: 0;
-      padding: 5% 0;
+      padding: 8% 0;
       background-repeat: no-repeat;
       background-size: contain;
       background-position: 50% 50%;
@@ -77,9 +77,9 @@ export default {
       }
     }
     &.star48 {
-      width: 14%;
+      width: 16%;
       height: 0;
-      padding: 7% 0;
+      padding: 8% 0;
       background-repeat: no-repeat;
       background-size: contain;
       background-position: 50% 50%;
