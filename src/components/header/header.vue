@@ -28,32 +28,36 @@
       <i class="icon-keyboard_arrow_right"></i>
     </div>
     <transition name='fade'>
-      <div class="detail" v-show="showDetail">
+      <div class="detail" v-show="showDetail" ref="detailOuter">
         <div class="detail-wrapper">
-          <h1 class="name">{{ sellerInfo.name }}</h1>
-          <Star :style="starStyle" :score="sellerInfo.score" :size="24" />
-          <div class="msgBar">
-            <span class="line"></span>
-            <span class="title">优惠信息</span>
-            <span class="line"></span>
+          <div class="content-wrapper-salt">
+            <h1 class="name">{{ sellerInfo.name }}</h1>
+            <div class="star-wrapper">
+              <Star :style="starStyle" :score="sellerInfo.score" :size="24" />
+            </div>
+            <div class="msgBar">
+              <span class="line"></span>
+              <span class="title">优惠信息</span>
+              <span class="line"></span>
+            </div>
+            <div class="supports">
+              <ul>
+                <li v-for="(item, index) in sellerInfo.supports" :key="index">
+                  <span class="icon" :class="supportType(item.type)"></span>
+                  <span class="content">{{ item.description }}</span>
+                </li>
+              </ul>
+            </div>
+            <div class="msgBar">
+              <span class="line"></span>
+              <span class="title">商家公告</span>
+              <span class="line"></span>
+            </div>
+            <p class="bulletin" @click="toggleDetailShow">{{ sellerInfo.bulletin }}</p>
           </div>
-          <div class="supports">
-            <ul>
-              <li v-for="(item, index) in sellerInfo.supports" :key="index">
-                <span class="icon" :class="supportType(item.type)"></span>
-                <span class="content">{{ item.description }}</span>
-              </li>
-            </ul>
+          <div class="detail-footer" @click="toggleDetailShow">
+            <i class="icon-close"></i>
           </div>
-          <div class="msgBar">
-            <span class="line"></span>
-            <span class="title">商家公告</span>
-            <span class="line"></span>
-          </div>
-          <p class="bulletin">{{ sellerInfo.bulletin }}</p>
-        </div>
-        <div class="detail-footer" @click="toggleDetailShow">
-          <i class="icon-close"></i>
         </div>
       </div>
     </transition>
@@ -62,6 +66,7 @@
 
 <script>
 import Star from '@/components/star/star'
+import BScroll from 'better-scroll'
 export default {
   props: {
     sellerInfo: Object
@@ -85,6 +90,11 @@ export default {
     },
     toggleDetailShow () {
       this.showDetail = !this.showDetail
+      this.$nextTick(() => {
+        this.detailOuter = new BScroll(this.$refs.detailOuter, {
+          click: true
+        })
+      })
     }
   },
   components: {
@@ -223,12 +233,12 @@ export default {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       padding: 0 .72rem;
       z-index: 100;
       background-color: rgba(7, 17, 27, .8);
-      overflow: auto;
+      overflow: hidden;
       -webkit-backdrop-filter: blur(10px);
       &.fade-enter-active, &.fade-leave-active {
         transition: opacity .3s;
@@ -236,82 +246,88 @@ export default {
       &.fade-enter, &.fade-leave-to {
         opacity: 0;
       }
-
+      &::-webkit-scrollbar {
+        display: none;
+      }
       .detail-wrapper {
-        min-height: 100%;
-        padding-top: 1.28rem;
+        flex-wrap: wrap;
+        position: relative;
+        min-height: 100vh;
         padding-bottom: 1.28rem;
-        margin-bottom: -1.28rem;
-        .name {
-          font-size: .32rem;
-          line-height: .32rem;
-          font-weight: 700;
-          text-align: center;
-        }
-        .msgBar {
-          display: flex;
-          line-height: .28rem;
-          align-items: center;
-          margin: .56rem 0 .48rem;
-          span.line {
-            display: inline-block;
-            flex-grow: 1;
-            background-color: rgba(255,255,255,.2);
-            height: .02rem;
-          }
-          span.title {
-            font-size: .28rem;
+        .content-wrapper-salt {
+          padding-top: .72rem;
+          .name {
+            font-size: .32rem;
+            line-height: .32rem;
             font-weight: 700;
-            padding: 0 .24rem;
+            text-align: center;
           }
-        }
-        .supports {
-          ul {
-            li {
-              font-size: .24rem;
-              line-height: .32rem;
-              margin-top: .24rem;
-              span.icon {
-                display: inline-block;
-                width: 0.32rem;
-                height: 0.32rem;
-                background-size: contain;
-                vertical-align: top;
-                &.decrease {
-                  @include bg-image("decrease_1")
-                }
-                &.discount {
-                  @include bg-image("discount_1")
-                }
-                &.guarantee {
-                  @include bg-image("guarantee_1")
-                }
-                &.invoice {
-                  @include bg-image("invoice_1")
-                }
-                &.special {
-                  @include bg-image("special_1")
+          .msgBar {
+            display: flex;
+            line-height: .28rem;
+            align-items: center;
+            margin: .56rem 0 .48rem;
+            span.line {
+              display: inline-block;
+              flex-grow: 1;
+              background-color: rgba(255,255,255,.2);
+              height: .02rem;
+            }
+            span.title {
+              font-size: .28rem;
+              font-weight: 700;
+              padding: 0 .24rem;
+            }
+          }
+          .supports {
+            ul {
+              li {
+                font-size: .24rem;
+                line-height: .32rem;
+                margin-top: .24rem;
+                span.icon {
+                  display: inline-block;
+                  width: 0.32rem;
+                  height: 0.32rem;
+                  background-size: contain;
+                  vertical-align: top;
+                  &.decrease {
+                    @include bg-image("decrease_1")
+                  }
+                  &.discount {
+                    @include bg-image("discount_1")
+                  }
+                  &.guarantee {
+                    @include bg-image("guarantee_1")
+                  }
+                  &.invoice {
+                    @include bg-image("invoice_1")
+                  }
+                  &.special {
+                    @include bg-image("special_1")
+                  }
                 }
               }
             }
           }
+          p.bulletin {
+            padding: 0 .24rem;
+            font-size: .24rem;
+            line-height: 2;
+          }
         }
-        p.bulletin {
-          padding: 0 .24rem;
-          font-size: .24rem;
-          line-height: 2;
-        }
-      }
-      .detail-footer {
-        width: 100%;
-        bottom: 0;
-        height: 1.28rem;
-        font-size: 0;
-        text-align: center;
-        i {
-          color: rgba(255, 255, 255, .5);
-          font-size: .64rem;
-          line-height: 1.28rem;
+        .detail-footer {
+          position: absolute;
+          width: 100%;
+          bottom: 0;
+          height: 1.28rem;
+          font-size: 0;
+          text-align: center;
+          i {
+            color: rgba(255, 255, 255, .5);
+            font-size: .64rem;
+            line-height: 1.28rem;
+          }
         }
       }
     }

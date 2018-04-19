@@ -56,6 +56,9 @@ var store = new Vuex.Store({
         }
       }
     },
+    clearUserSelect: (state) => {
+      state.userSelected = []
+    },
     toggleCollection: (state) => {
       state.collected = !state.collected
     }

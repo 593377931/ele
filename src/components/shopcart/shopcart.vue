@@ -23,7 +23,7 @@
     <div class="shopcart-list" v-show="showShopcartList">
       <h2 class="header">
         <span class="cart">购物车</span>
-        <span class="clear">清空</span>
+        <span class="clear" @click="clearUserSelect">清空</span>
       </h2>
       <ul>
         <li class="list-item border-1px" v-for="food in selectedFoods" :key="food.name">
@@ -82,6 +82,9 @@ export default {
         return
       }
       this.showShopcartList = !this.showShopcartList
+    },
+    clearUserSelect () {
+      this.$store.commit('clearUserSelect')
     }
   },
   components: {

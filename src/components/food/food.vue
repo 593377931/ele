@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper border-1px">
+  <div class="wrapper-food border-1px">
     <img :src="msg.icon" alt="food picture">
     <div class="content" @click="showFoodDeatil">
       <h2 class="name">{{ msg.name }}</h2>
@@ -50,7 +50,7 @@ export default {
 
 <style lang="scss">
   @import '../../common/scss/mixin.scss';
-  .wrapper {
+  .wrapper-food {
     @include border-1px(rgba(7, 17, 27, .1));
     position: relative;
     &::after {

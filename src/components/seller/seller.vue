@@ -49,8 +49,10 @@
       <section class="line-bar"></section>
       <section class="photos">
         <h2 class="title">商家实景</h2>
-        <div class="pics">
-          <img v-for="(item, index) in sellerInfo.pics" :src="item" alt="sellerPics" :key="index">
+        <div class="pics" ref="picsComponent">
+          <div class="wrapper">
+            <img v-for="(item, index) in sellerInfo.pics" :src="item" alt="sellerPics" :key="index" @click="showBigSellerPic">
+          </div>
         </div>
       </section>
       <section class="line-bar"></section>
@@ -74,6 +76,14 @@ export default {
       this.wrapper = new BScroll(this.$el, {
         click: true
       })
+      console.log(this.$refs.picsComponent)
+      console.log(this.$refs.picsComponent.offsetWidth)
+      console.log(this)
+      this.picsWrapper = new BScroll(this.$refs.picsComponent, {
+        click: true,
+        scrollX: true,
+        eventPassthrough: 'vertical'
+      })
     })
   },
   computed: {
@@ -86,13 +96,27 @@ export default {
   },
   data () {
     return {
-      operating: false
+      operating: false,
+      picShowing: ''
     }
   },
   components: {
     Star
   },
   methods: {
+    showBigSellerPic (event) {
+      if (!this.operating) {
+        this.betterScorllBugHack()
+        let src = event.target.src
+        let bigPicWrapper = document.createElement('div')
+        bigPicWrapper.classList.add('picBubble')
+        bigPicWrapper.innerHTML = `<img src="${src}" alt="seller picture">`
+        document.body.appendChild(bigPicWrapper)
+        bigPicWrapper.addEventListener('click', () => {
+          document.body.removeChild(bigPicWrapper)
+        })
+      }
+    },
     toggleCollection () {
       if (!this.operating) {
         this.betterScorllBugHack()
@@ -273,16 +297,16 @@ export default {
           font-size: 0;
           width: 100%;
           height: auto;
-          overflow: auto;
           white-space: nowrap;
-          &::-webkit-scrollbar {
-            display: none;
-          }
-          img {
-            height: 1.80rem;
-            padding-right: .12rem;
-            &:last-child {
-              padding-right: 0;
+          overflow: hidden;
+          >.wrapper {
+            width: fit-content;
+            img {
+              height: 1.80rem;
+              padding-right: .12rem;
+              &:last-child {
+                padding-right: 0;
+              }
             }
           }
         }
@@ -306,6 +330,23 @@ export default {
           }
         }
       }
+    }
+  }
+  body .picBubble {
+    position: fixed;
+    top: 0px;
+    right: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(7, 17, 27, .8);
+    -webkit-backdrop-filter: blur(10px);
+    img {
+      position: absolute;
+      width: 100%;
+      height: auto;
+      top: 0;
+      bottom: 0;
+      margin: auto;
     }
   }
 </style>

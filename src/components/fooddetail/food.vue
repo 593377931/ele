@@ -78,6 +78,9 @@ export default {
   overflow: auto;
   background-color: #fff;
   padding-bottom: .96rem;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .img {
     position: relative;
     .exit {
