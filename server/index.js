@@ -10,6 +10,12 @@ const appDate = require(path.join(rootPath, './data.json'))
 app.set('x-powered-by', false)
 
 app.use(express.static(path.join(rootPath, './dist')))
+
+app.use('/', (req, res, next) => {
+  console.log(req.ip)
+  next()
+})
+
 app.get('/', (req, res) => {
   console.log('root')
   res.sendFile('./dist/index.html', {
