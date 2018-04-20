@@ -84,12 +84,36 @@
         -webkit-animation: rotate 2s linear infinite;
         background-color: #f0f0f0;
       }
+      .github-logo {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: .6rem;
+        height: .6rem;
+        margin: .1rem;
+      }
+      .github-logo a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-image: url(/static/img/github.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+        border-radius: 9999rem;
+        background-color: rgba(256, 256, 256, .2);
+        background-origin: content-box;
+        box-shadow: inset 0 0 .03rem .02rem #323131;
+      }
     </style>
   </head>
   <body>
     <div id="app"></div>
     <div class="cover">
       <div class="stage"></div>
+    </div>
+    <div class="github-logo">
+      <a href="https://github.com/593377931/ele" target="_blank"></a>
     </div>
     <!-- built files will be auto injected -->
   </body>

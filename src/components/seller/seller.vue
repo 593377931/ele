@@ -76,9 +76,6 @@ export default {
       this.wrapper = new BScroll(this.$el, {
         click: true
       })
-      console.log(this.$refs.picsComponent)
-      console.log(this.$refs.picsComponent.offsetWidth)
-      console.log(this)
       this.picsWrapper = new BScroll(this.$refs.picsComponent, {
         click: true,
         scrollX: true,
