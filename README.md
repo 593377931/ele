@@ -4,7 +4,10 @@
 
 > A Vue.js project
 
+> 本项目素材来自[慕课网](https://coding.imooc.com/class/74.html)
+
 * 饿了么商家页单页面 WEB APP 开发模仿
+* 在原项目基础上实现了完全的移动端自适应
 * 使用 Vue 进行组件化开发
 * 使用 Vue-Cli 脚手架工具构建
 * Axios 进行异步请求
