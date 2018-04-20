@@ -11,7 +11,7 @@ app.set('x-powered-by', false)
 
 app.use(express.static(path.join(rootPath, './dist')))
 
-app.use('/', (req, res, next) => {
+app.use((req, res, next) => {
   console.log(req.ip)
   next()
 })
